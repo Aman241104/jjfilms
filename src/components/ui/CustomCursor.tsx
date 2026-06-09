@@ -1,106 +1,126 @@
 "use client";
 
 import React, { useEffect, useRef, useState } from "react";
+import Image from "next/image";
 import gsap from "gsap";
 
 export const CustomCursor = () => {
-  const cursorRef = useRef<HTMLDivElement>(null);
-  const followerRef = useRef<HTMLDivElement>(null);
-  const [cursorText, setCursorText] = useState("");
+  const dotRef = useRef<HTMLDivElement>(null);
+  const imgRef = useRef<HTMLDivElement>(null);
+  const [cursorImg, setCursorImg] = useState<string | null>(null);
+  const [imgLabel, setImgLabel]   = useState<string>("");
+  const posRef = useRef({ x: 0, y: 0 });
 
   useEffect(() => {
-    const cursor = cursorRef.current;
-    const follower = followerRef.current;
+    const dot = dotRef.current;
+    const img = imgRef.current;
+    if (!dot || !img) return;
 
-    if (!cursor || !follower) return;
-
-    const onMouseMove = (e: MouseEvent) => {
-      gsap.to(cursor, {
-        x: e.clientX,
-        y: e.clientY,
-        duration: 0.1,
-        ease: "power2.out",
-      });
-      gsap.to(follower, {
-        x: e.clientX,
-        y: e.clientY,
-        duration: 0.3,
+    // Track raw position for image offset calculation
+    const onMove = (e: MouseEvent) => {
+      posRef.current = { x: e.clientX, y: e.clientY };
+      gsap.to(dot, { x: e.clientX, y: e.clientY, duration: 0.12, ease: "power2.out" });
+      // Image floats above-right of cursor
+      gsap.to(img, {
+        x: e.clientX + 20,
+        y: e.clientY - 100,
+        duration: 0.38,
         ease: "power2.out",
       });
     };
 
-    const onMouseEnterLink = (e: Event) => {
-      const target = e.currentTarget as HTMLElement;
-      const text = target.getAttribute("data-cursor");
-      
-      if (text) {
-        setCursorText(text);
-        gsap.to(cursor, { scale: 0, opacity: 0, duration: 0.3 });
-        gsap.to(follower, { 
-          scale: 3.5, 
-          backgroundColor: "rgba(255,255,255,1)",
-          duration: 0.3 
-        });
+    const onEnterInteractive = (e: Event) => {
+      const el = e.currentTarget as HTMLElement;
+      const src = el.getAttribute("data-cursor-image");
+      const label = el.getAttribute("data-cursor-label") ||
+        el.querySelector("p")?.textContent?.trim() || "";
+
+      if (src) {
+        setCursorImg(src);
+        setImgLabel(label);
+        gsap.to(dot, { scale: 0, opacity: 0, duration: 0.2 });
+        gsap.to(img, { scale: 1, opacity: 1, duration: 0.4, ease: "back.out(1.2)" });
       } else {
-        gsap.to(cursor, { scale: 3, duration: 0.3 });
-        gsap.to(follower, { scale: 2, opacity: 0, duration: 0.3 });
+        // Subtle expand on interactive elements
+        gsap.to(dot, { scale: 2.5, backgroundColor: "rgba(196,164,132,0.9)", duration: 0.25 });
       }
     };
 
-    const onMouseLeaveLink = () => {
-      setCursorText("");
-      gsap.to(cursor, { scale: 1, opacity: 1, duration: 0.3 });
-      gsap.to(follower, { 
-        scale: 1, 
-        opacity: 1, 
-        backgroundColor: "transparent",
-        duration: 0.3 
+    const onLeaveInteractive = (e: Event) => {
+      const el = e.currentTarget as HTMLElement;
+      if (el.getAttribute("data-cursor-image")) {
+        setCursorImg(null);
+        gsap.to(dot, { scale: 1, opacity: 1, duration: 0.25 });
+        gsap.to(img, { scale: 0.85, opacity: 0, duration: 0.22 });
+      } else {
+        gsap.to(dot, { scale: 1, backgroundColor: "rgba(253,250,246,0.9)", duration: 0.25 });
+      }
+    };
+
+    window.addEventListener("mousemove", onMove);
+
+    const attachEvents = () => {
+      document.querySelectorAll(
+        "a, button, .interactive, input, select, textarea, [data-cursor-image]"
+      ).forEach((el) => {
+        el.removeEventListener("mouseenter", onEnterInteractive);
+        el.removeEventListener("mouseleave", onLeaveInteractive);
+        el.addEventListener("mouseenter", onEnterInteractive);
+        el.addEventListener("mouseleave", onLeaveInteractive);
       });
     };
 
-    window.addEventListener("mousemove", onMouseMove);
-    
-    const attachHover = () => {
-      const links = document.querySelectorAll("a, button, .interactive, select, input, textarea, [data-cursor]");
-      links.forEach((link) => {
-        link.removeEventListener("mouseenter", onMouseEnterLink);
-        link.removeEventListener("mouseleave", onMouseLeaveLink);
-        link.addEventListener("mouseenter", onMouseEnterLink);
-        link.addEventListener("mouseleave", onMouseLeaveLink);
-      });
-    };
-
-    attachHover();
-
-    const observer = new MutationObserver(() => {
-      attachHover();
-    });
-
-    observer.observe(document.body, {
-      childList: true,
-      subtree: true,
-    });
+    attachEvents();
+    const observer = new MutationObserver(attachEvents);
+    observer.observe(document.body, { childList: true, subtree: true });
 
     return () => {
-      window.removeEventListener("mousemove", onMouseMove);
+      window.removeEventListener("mousemove", onMove);
       observer.disconnect();
     };
   }, []);
 
   return (
     <>
-      <div 
-        ref={cursorRef} 
-        className="custom-cursor fixed top-0 left-0 w-3 h-3 bg-white rounded-full pointer-events-none z-[9999] hidden md:block -translate-x-1/2 -translate-y-1/2" 
+      {/* Main dot — cream, no mix-blend-mode */}
+      <div
+        ref={dotRef}
+        className="fixed top-0 left-0 pointer-events-none z-[9999] hidden md:block"
+        style={{
+          width: "8px",
+          height: "8px",
+          borderRadius: "50%",
+          backgroundColor: "rgba(253,250,246,0.9)",
+          transform: "translate(-50%, -50%)",
+          boxShadow: "0 0 0 1px rgba(0,0,0,0.15)",
+          willChange: "transform",
+        }}
       />
-      <div 
-        ref={followerRef} 
-        className="custom-cursor-follower fixed top-0 left-0 w-8 h-8 border border-white/50 rounded-full pointer-events-none z-[9998] hidden md:block -translate-x-1/2 -translate-y-1/2 flex items-center justify-center overflow-hidden" 
+
+      {/* Image preview — offset above-right of cursor */}
+      <div
+        ref={imgRef}
+        className="fixed top-0 left-0 pointer-events-none z-[9998] hidden md:block overflow-hidden rounded-sm shadow-2xl"
+        style={{
+          width: "148px",
+          height: "108px",
+          opacity: 0,
+          scale: "0.85",
+          transform: "translate(0, 0)",
+          willChange: "transform, opacity",
+        }}
       >
-        {cursorText && (
-          <span className="text-[4px] font-bold text-black uppercase tracking-tighter leading-none text-center">
-            {cursorText}
-          </span>
+        {cursorImg && (
+          <>
+            <Image src={cursorImg} alt="" fill sizes="148px" className="object-cover" />
+            {imgLabel && (
+              <div className="absolute bottom-0 left-0 right-0 px-2.5 py-1.5 bg-dark-void/60">
+                <p className="text-label text-white/70 truncate" style={{ fontSize: "0.5rem" }}>
+                  {imgLabel}
+                </p>
+              </div>
+            )}
+          </>
         )}
       </div>
     </>

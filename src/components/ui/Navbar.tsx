@@ -4,96 +4,166 @@ import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
-import { Menu, X } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
 
 const links = [
-  { name: "Home", href: "/" },
-  { name: "Real Estate", href: "/real-estate" },
-  { name: "Wedding Films", href: "/wedding-films" },
-  { name: "About", href: "/about" },
-  { name: "Gallery", href: "/gallery" },
-  { name: "Contact", href: "/contact" },
+  { name: "Home",               href: "/" },
+  { name: "Real Estate",        href: "/real-estate" },
+  { name: "Product",            href: "/product-photography" },
+  { name: "Events & Weddings",  href: "/wedding-films" },
+  { name: "About",              href: "/about" },
+  { name: "Gallery",            href: "/gallery" },
+  { name: "Contact",            href: "/contact" },
 ];
 
 export const Navbar = () => {
-  const [isOpen, setIsOpen] = useState(false);
+  const [isOpen, setIsOpen]     = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  const pathname = usePathname();
+  const pathname                = usePathname();
+
+  // Only the home page has a dark full-bleed hero at the top
+  const hasDarkHero = pathname === "/";
 
   useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 50);
-    };
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
+    const onScroll = () => setScrolled(window.scrollY > 60);
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
+  // Close menu on route change
+  useEffect(() => { setIsOpen(false); }, [pathname]);
+
   return (
-    <nav
-      className={cn(
-        "fixed top-0 left-0 w-full z-[100] transition-all duration-500",
-        scrolled ? "py-4 glass-dark" : "py-8 bg-transparent"
-      )}
-    >
-      <div className="container mx-auto px-6 flex justify-between items-center relative z-[101]">
-        <Link href="/" className="text-2xl font-serif font-bold tracking-tighter">
-          JJFILMS<span className="text-jjfilms-accent-wedding">.</span>
-        </Link>
-
-        {/* Desktop Links - Hidden on Mobile */}
-        <div className="hidden md:flex space-x-8">
-          {links.map((link) => (
-            <Link
-              key={link.name}
-              href={link.href}
-              className={cn(
-                "text-sm uppercase tracking-widest font-medium transition-all hover:text-jjfilms-accent-wedding",
-                pathname === link.href ? "text-jjfilms-accent-wedding" : "text-white/70"
-              )}
-            >
-              {link.name}
-            </Link>
-          ))}
-        </div>
-
-        {/* Mobile Toggle */}
-        <button
-          className="md:hidden text-white/70 interactive focus:outline-none hover:text-white transition-colors"
-          onClick={() => setIsOpen(!isOpen)}
-        >
-          {isOpen ? <X size={24} /> : <Menu size={24} />}
-        </button>
-      </div>
-
-      {/* Mobile Menu Overlay */}
-      <div
+    <>
+      <nav
         className={cn(
-          "fixed inset-0 bg-black/98 z-[99] md:hidden flex flex-col items-center justify-center space-y-10 transition-all duration-700 ease-in-out",
-          isOpen ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-full pointer-events-none"
+          "fixed top-0 left-0 w-full z-[100] transition-all duration-500",
+          scrolled || !hasDarkHero
+            ? "py-4 bg-cream-50/95 backdrop-blur-md border-b border-ink-100/40"
+            : "py-6 bg-transparent"
         )}
       >
-        <div className="flex flex-col items-center space-y-8">
-          <p className="text-[10px] tracking-[0.5em] uppercase text-white/30 mb-4">Menu</p>
-          {links.map((link) => (
-            <Link
-              key={link.name}
-              href={link.href}
-              onClick={() => setIsOpen(false)}
+        <div className="px-6 md:px-10 flex items-center justify-between">
+          {/* Left – location tag */}
+          <span
+            className={cn(
+              "text-label hidden md:block transition-colors duration-500",
+              scrolled || !hasDarkHero ? "text-ink-500" : "text-white/60"
+            )}
+          >
+            STUDIO · WORLDWIDE
+          </span>
+
+          {/* Center – logo */}
+          <Link
+            href="/"
+            className={cn(
+              "absolute left-1/2 -translate-x-1/2 font-display font-bold tracking-[0.15em] text-xl transition-colors duration-500",
+              scrolled || !hasDarkHero ? "text-ink-900" : "text-white"
+            )}
+          >
+            JJFILMS<span className="text-accent-ev">.</span>
+          </Link>
+
+          {/* Right – desktop links + menu toggle */}
+          <div className="ml-auto flex items-center gap-8">
+            {/* Desktop nav links */}
+            <div className="hidden lg:flex items-center gap-7">
+              {links.slice(1).map((link) => (
+                <Link
+                  key={link.href}
+                  href={link.href}
+                  className={cn(
+                    "text-label hover-underline transition-colors duration-300",
+                    pathname === link.href
+                      ? scrolled || !hasDarkHero ? "text-ink-900" : "text-white"
+                      : scrolled || !hasDarkHero ? "text-ink-500 hover:text-ink-900" : "text-white/60 hover:text-white"
+                  )}
+                >
+                  {link.name}
+                </Link>
+              ))}
+            </div>
+
+            {/* Menu toggle (always visible) */}
+            <button
+              onClick={() => setIsOpen(true)}
               className={cn(
-                "text-4xl font-serif transition-colors",
-                pathname === link.href ? "text-jjfilms-accent-wedding" : "text-white/80 hover:text-white"
+                "text-label flex items-center gap-2 transition-colors duration-300 interactive lg:hidden",
+                scrolled || !hasDarkHero ? "text-ink-700 hover:text-ink-900" : "text-white/70 hover:text-white"
               )}
             >
-              {link.name}
-            </Link>
-          ))}
+              MENU
+              <span className="inline-block w-4 h-4 rounded-full border border-current" />
+            </button>
+          </div>
         </div>
-        
-        <div className="absolute bottom-20 flex space-x-8 text-[10px] tracking-widest text-white/40 uppercase">
-           <a href="#">Instagram</a>
-           <a href="#">Vimeo</a>
-        </div>
-      </div>
-    </nav>
+      </nav>
+
+      {/* Full-screen menu overlay */}
+      <AnimatePresence>
+        {isOpen && (
+          <motion.div
+            initial={{ clipPath: "inset(0 0 100% 0)" }}
+            animate={{ clipPath: "inset(0 0 0% 0)" }}
+            exit={{ clipPath: "inset(0 0 100% 0)" }}
+            transition={{ duration: 0.7, ease: [0.76, 0, 0.24, 1] }}
+            className="fixed inset-0 z-[200] bg-dark-void flex flex-col"
+          >
+            {/* Top bar */}
+            <div className="flex items-center justify-between px-6 md:px-10 py-6 border-b border-white/5">
+              <span className="font-display font-bold text-white tracking-[0.15em]">
+                JJFILMS<span className="text-accent-ev">.</span>
+              </span>
+              <button
+                onClick={() => setIsOpen(false)}
+                className="text-label text-white/60 hover:text-white transition-colors flex items-center gap-2 interactive"
+              >
+                CLOSE
+                <span className="inline-block w-4 h-4 rounded-full border border-current" />
+              </button>
+            </div>
+
+            {/* Links */}
+            <div className="flex-1 flex flex-col justify-center px-10 md:px-16 gap-2">
+              {links.map((link, i) => (
+                <motion.div
+                  key={link.href}
+                  initial={{ opacity: 0, x: -30 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: 0.3 + i * 0.06, duration: 0.5, ease: "easeOut" }}
+                >
+                  <Link
+                    href={link.href}
+                    onClick={() => setIsOpen(false)}
+                    className={cn(
+                      "block font-display font-bold leading-none py-3 border-b border-white/5 hover:text-accent-ev transition-colors duration-300",
+                      "text-4xl md:text-6xl",
+                      pathname === link.href ? "text-accent-ev" : "text-white/80"
+                    )}
+                  >
+                    {link.name}
+                  </Link>
+                </motion.div>
+              ))}
+            </div>
+
+            {/* Footer row */}
+            <div className="px-10 md:px-16 py-8 flex items-center justify-between border-t border-white/5">
+              <div className="flex gap-6">
+                {["Instagram", "Behance", "LinkedIn"].map((s) => (
+                  <a key={s} href="#" className="text-label text-white/30 hover:text-white transition-colors">
+                    {s}
+                  </a>
+                ))}
+              </div>
+              <span className="text-label text-white/20" suppressHydrationWarning>
+                © {new Date().getFullYear()} JJFILMS
+              </span>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </>
   );
 };

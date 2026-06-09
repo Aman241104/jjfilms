@@ -1,125 +1,219 @@
 @import "tailwindcss";
 
+/* ─── Design Tokens ─────────────────────────────────────────── */
 :root {
-  --background: #0A0A0A;
-  --foreground: #F2F0EB;
-  --font-serif: "Playfair Display", serif;
-  --font-sans: "Plus Jakarta Sans", sans-serif;
-  --font-display: "Plus Jakarta Sans", sans-serif;
+  /* Surfaces – Light Editorial */
+  --cream-50:  #FDFAF6;
+  --cream-100: #F7F3ED;
+  --cream-200: #EDE7DC;
+  --cream-300: #DDD4C5;
+
+  /* Ink */
+  --ink-900: #0D0B08;
+  --ink-700: #2A2520;
+  --ink-500: #5C5448;
+  --ink-300: #9B9287;
+  --ink-100: #C8BFB5;
+
+  /* Accents */
+  --accent-re: #7A8B95;   /* Real Estate  */
+  --accent-ev: #C4A484;   /* Events / Weddings */
+  --accent-pr: #8B7355;   /* Product */
+
+  /* Dark Sections */
+  --dark-void:    #0A0806;
+  --dark-mid:     #1A1612;
+  --dark-surface: #221E18;
+
+  /* Typography */
+  --font-serif:   "Playfair Display", serif;
+  --font-sans:    "Plus Jakarta Sans", sans-serif;
+  --font-display: "Cormorant Garamond", serif;
+  --font-script:  "Dancing Script", cursive;
 }
 
+/* ─── Tailwind Theme ─────────────────────────────────────────── */
 @theme {
-  --font-serif: var(--font-serif);
-  --font-sans: var(--font-sans);
-  --font-display: var(--font-display);
+  /* Surfaces */
+  --color-cream-50:  #FDFAF6;
+  --color-cream-100: #F7F3ED;
+  --color-cream-200: #EDE7DC;
+  --color-cream-300: #DDD4C5;
+
+  /* Ink */
+  --color-ink-900: #0D0B08;
+  --color-ink-700: #2A2520;
+  --color-ink-500: #5C5448;
+  --color-ink-300: #9B9287;
+  --color-ink-100: #C8BFB5;
+
+  /* Accents */
+  --color-accent-re: #7A8B95;
+  --color-accent-ev: #C4A484;
+  --color-accent-pr: #8B7355;
+
+  /* Dark */
+  --color-dark-void:    #0A0806;
+  --color-dark-mid:     #1A1612;
+  --color-dark-surface: #221E18;
+
+  /* Legacy aliases – keeps existing pages compiling */
+  --color-jjfilms-accent-wedding: #C4A484;
+  --color-jjfilms-accent-re:      #7A8B95;
+  --color-jjfilms-dark-deep:      #0A0806;
+  --color-jjfilms-neutral-900:    #2B2822;
+
+  /* Typography */
+  --font-serif:   "Playfair Display", serif;
+  --font-sans:    "Plus Jakarta Sans", sans-serif;
+  --font-display: "Cormorant Garamond", serif;
+  --font-script:  "Dancing Script", cursive;
 }
 
+/* ─── Base ───────────────────────────────────────────────────── */
 body {
-  background: var(--background);
-  color: var(--foreground);
+  background: var(--cream-50);
+  color: var(--ink-900);
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-*:focus {
-  outline: none !important;
-}
+*:focus { outline: none !important; }
 
-/* Custom Cursor Styles */
-.custom-cursor {
-  /* mix-blend-mode: difference removed */
-}
+/* ─── Typography Utilities ───────────────────────────────────── */
+.font-display  { font-family: var(--font-display); }
+.font-script   { font-family: var(--font-script); }
+.font-serif    { font-family: var(--font-serif); }
+.font-sans     { font-family: var(--font-sans); }
 
-.custom-cursor-follower {
-  transition: opacity 0.3s ease-out;
-}
-
-/* Film Grain Overlay */
-.film-grain::after {
-  content: "";
-  position: fixed;
-  top: -100%;
-  left: -100%;
-  width: 300%;
-  height: 300%;
-  background-image: url("https://upload.wikimedia.org/wikipedia/commons/7/76/1k_Noisy_Texture.png");
-  background-repeat: repeat;
-  opacity: 0.04;
-  pointer-events: none;
-  z-index: 9999;
-  animation: grain 8s steps(10) infinite;
-}
-
-@keyframes grain {
-  0%, 100% { transform: translate(0, 0); }
-  10% { transform: translate(-5%, -10%); }
-  20% { transform: translate(-15%, 5%); }
-  30% { transform: translate(7%, -25%); }
-  40% { transform: translate(-5%, 25%); }
-  50% { transform: translate(-15%, 10%); }
-  60% { transform: translate(15%, 0); }
-  70% { transform: translate(0, 15%); }
-  80% { transform: translate(3%, 35%); }
-  90% { transform: translate(-10%, 10%); }
-}
-
-.scroll-progress {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 2px;
-  background: var(--jjfilms-accent-wedding);
-  transform-origin: 0%;
-  z-index: 1001;
-}
-
-/* Glassmorphism Utilities */
-.glass {
-  background: rgba(255, 255, 255, 0.05);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-.glass-dark {
-  background: rgba(0, 0, 0, 0.4);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-}
-
-/* Cinematic Typography */
 .text-editorial {
   font-family: var(--font-serif);
   letter-spacing: -0.02em;
 }
 
 .text-cinematic {
-  letter-spacing: 0.1em;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
   font-weight: 500;
 }
 
-/* GSAP Helper Classes */
+.text-label {
+  font-family: var(--font-sans);
+  font-size: 0.65rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  font-weight: 500;
+}
+
+/* ─── Film Grain (SVG noise, no external request) ───────────── */
+.film-grain::after {
+  content: "";
+  position: fixed;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  background-size: 180px 180px;
+  opacity: 0.04;
+  pointer-events: none;
+  z-index: 9996;
+  animation: grain 8s steps(10) infinite;
+  mix-blend-mode: overlay;
+}
+
+@keyframes grain {
+  0%,100% { transform: translate(0,0); }
+  10%  { transform: translate(-5%,-10%); }
+  20%  { transform: translate(-15%,5%); }
+  30%  { transform: translate(7%,-25%); }
+  40%  { transform: translate(-5%,25%); }
+  50%  { transform: translate(-15%,10%); }
+  60%  { transform: translate(15%,0); }
+  70%  { transform: translate(0,15%); }
+  80%  { transform: translate(3%,35%); }
+  90%  { transform: translate(-10%,10%); }
+}
+
+/* ─── Scroll Progress Bar ────────────────────────────────────── */
+.scroll-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1.5px;
+  background: var(--accent-ev);
+  transform-origin: 0%;
+  z-index: 1001;
+}
+
+/* ─── Glassmorphism (light + dark variants) ──────────────────── */
+.glass {
+  background: rgba(253,250,246,0.7);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(13,11,8,0.08);
+}
+
+.glass-dark {
+  background: rgba(10,8,6,0.65);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255,255,255,0.07);
+}
+
+/* ─── GSAP Reveal Helpers ────────────────────────────────────── */
 .gsap-reveal {
   opacity: 0;
   visibility: hidden;
 }
 
-::-webkit-scrollbar {
-  width: 6px;
+/* ─── Clip-path utilities ────────────────────────────────────── */
+.clip-hidden { clip-path: inset(100% 0 0 0); }
+.clip-open   { clip-path: inset(0 0 0 0); }
+
+/* ─── Section Divider ─────────────────────────────────────────── */
+.section-line {
+  width: 100%;
+  height: 1px;
+  background: var(--ink-100);
 }
 
-::-webkit-scrollbar-track {
-  background: #0A0A0A;
+/* ─── Hover underline slide ──────────────────────────────────── */
+.hover-underline {
+  position: relative;
+}
+.hover-underline::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -2px;
+  width: 0;
+  height: 1px;
+  background: currentColor;
+  transition: width 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.hover-underline:hover::after { width: 100%; }
+
+/* ─── Image Overlay Gradient ─────────────────────────────────── */
+.img-overlay-dark::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(10,8,6,0.7) 0%, rgba(10,8,6,0.2) 50%, transparent 100%);
+  pointer-events: none;
 }
 
-::-webkit-scrollbar-thumb {
-  background: #2B281F;
-  border-radius: 10px;
-}
+/* ─── Scrollbar ──────────────────────────────────────────────── */
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: var(--cream-100); }
+::-webkit-scrollbar-thumb { background: var(--ink-300); border-radius: 10px; }
+::-webkit-scrollbar-thumb:hover { background: var(--ink-500); }
 
-::-webkit-scrollbar-thumb:hover {
-  background: #4D4636;
-}
+.scrollbar-none { scrollbar-width: none; }
+.scrollbar-none::-webkit-scrollbar { display: none; }
+
+/* ─── Selection ──────────────────────────────────────────────── */
+::selection { background: var(--accent-ev); color: white; }
