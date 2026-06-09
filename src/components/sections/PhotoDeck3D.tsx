@@ -78,7 +78,7 @@ export const PhotoDeck3D = () => {
     const ctx = gsap.context(() => {
       gsap.from(".deck-reveal", {
         opacity: 0, y: 30, stagger: 0.1, duration: 0.8, ease: "power3.out",
-        clearProps: "all",
+        clearProps: "opacity,transform",
         immediateRender: false,
         scrollTrigger: { trigger: sectionRef.current, start: "top 70%", once: true },
       });

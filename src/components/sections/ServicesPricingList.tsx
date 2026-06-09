@@ -45,7 +45,7 @@ export const ServicesPricingList = () => {
         stagger: 0.12,
         duration: 0.7,
         ease: "power3.out",
-        clearProps: "all",
+        clearProps: "opacity,transform",
         immediateRender: false,
         scrollTrigger: { trigger: sectionRef.current, start: "top 75%", once: true },
       });

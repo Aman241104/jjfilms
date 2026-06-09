@@ -39,7 +39,7 @@ export const ContactForm = () => {
     const ctx = gsap.context(() => {
       gsap.from(".contact-reveal", {
         opacity: 0, y: 25, stagger: 0.1, duration: 0.8, ease: "power3.out",
-        clearProps: "all",
+        clearProps: "opacity,transform",
         immediateRender: false,
         scrollTrigger: { trigger: sectionRef.current, start: "top 70%", once: true },
       });
@@ -152,8 +152,8 @@ export const ContactForm = () => {
                 className="py-16 text-center"
               >
                 <p
-                  className="font-script text-ink-900 mb-4"
-                  style={{ fontFamily: "var(--font-script)", fontSize: "3rem" }}
+                  className="font-display italic text-ink-900 mb-4"
+                  style={{ fontSize: "3.5rem", letterSpacing: "-0.02em" }}
                 >
                   Thank you.
                 </p>

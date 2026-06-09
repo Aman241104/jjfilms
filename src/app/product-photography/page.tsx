@@ -10,6 +10,7 @@ import { HeroEditorial }        from "@/components/sections/HeroEditorial";
 import { HorizontalFilmstrip }  from "@/components/sections/HorizontalFilmstrip";
 import { ServicesPricingList }  from "@/components/sections/ServicesPricingList";
 import { EditorialTestimonial } from "@/components/sections/EditorialTestimonial";
+import { FAQAccordion }         from "@/components/sections/FAQAccordion";
 import { CTASection }           from "@/components/sections/CTASection";
 import { ServicePageIntro }     from "@/components/sections/ServicePageIntro";
 
@@ -43,6 +44,8 @@ export default function ProductPhotography() {
       <ServicesPricingList />
 
       <EditorialTestimonial />
+
+      <FAQAccordion />
 
       <CTASection
         image="https://images.unsplash.com/photo-1526170375885-4d8ecf77b99f?w=1920&q=85"

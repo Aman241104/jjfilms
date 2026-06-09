@@ -39,19 +39,19 @@ export const ServicePageIntro = ({
     const ctx = gsap.context(() => {
       gsap.from(split.words, {
         opacity: 0, y: 30, stagger: 0.05, duration: 0.7, ease: "power3.out",
-        clearProps: "all",
+        clearProps: "opacity,transform",
         immediateRender: false,
         scrollTrigger: { trigger: sectionRef.current, start: "top 75%", once: true },
       });
       gsap.from(".spi-body", {
         opacity: 0, y: 20, duration: 0.8, ease: "power3.out",
-        clearProps: "all",
+        clearProps: "opacity,transform",
         immediateRender: false,
         scrollTrigger: { trigger: sectionRef.current, start: "top 65%", once: true },
       });
       gsap.from(".spi-stat", {
         opacity: 0, y: 15, stagger: 0.1, duration: 0.6, ease: "power3.out",
-        clearProps: "all",
+        clearProps: "opacity,transform",
         immediateRender: false,
         scrollTrigger: { trigger: sectionRef.current, start: "top 60%", once: true },
       });

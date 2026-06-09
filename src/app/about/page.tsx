@@ -8,6 +8,7 @@ export const metadata: Metadata = {
 };
 import { FloatingPhotoCollage } from "@/components/sections/FloatingPhotoCollage";
 import { EditorialStatement }   from "@/components/sections/EditorialStatement";
+import { HorizontalFilmstrip }  from "@/components/sections/HorizontalFilmstrip";
 import { FAQAccordion }         from "@/components/sections/FAQAccordion";
 import { CTASection }           from "@/components/sections/CTASection";
 import { TeamSection }          from "@/components/sections/TeamSection";
@@ -18,6 +19,8 @@ export default function About() {
       <FloatingPhotoCollage title="Our Story" subtitle="About JJFILMS" />
 
       <EditorialStatement />
+
+      <HorizontalFilmstrip />
 
       <TeamSection />
 

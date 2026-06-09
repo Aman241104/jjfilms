@@ -30,7 +30,7 @@ export const FAQAccordion = () => {
     const ctx = gsap.context(() => {
       gsap.from(".faq-row", {
         opacity: 0, y: 20, stagger: 0.08, duration: 0.7, ease: "power3.out",
-        clearProps: "all",
+        clearProps: "opacity,transform",
         immediateRender: false,
         scrollTrigger: { trigger: sectionRef.current, start: "top 70%", once: true },
       });

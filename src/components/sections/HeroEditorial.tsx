@@ -118,8 +118,8 @@ export const HeroEditorial = ({
         {/* Scroll hint – bottom right */}
         <p
           ref={scriptRef}
-          className="font-script text-white/50 text-2xl"
-          style={{ fontFamily: "var(--font-script)" }}
+          className="font-display italic text-white/40"
+          style={{ fontSize: "1.25rem", letterSpacing: "0.02em" }}
         >
           scroll to explore ↓
         </p>

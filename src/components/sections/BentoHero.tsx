@@ -74,7 +74,7 @@ export const BentoHero = () => {
         duration: 0.8,
         delay: base + 0.3,
         ease: "power3.out",
-        clearProps: "all",
+        clearProps: "opacity,transform",
       });
     }, containerRef);
     return () => ctx.revert();

@@ -11,6 +11,7 @@ import { ServicePageIntro }     from "@/components/sections/ServicePageIntro";
 import { HorizontalFilmstrip }  from "@/components/sections/HorizontalFilmstrip";
 import { ServicesPricingList }  from "@/components/sections/ServicesPricingList";
 import { EditorialTestimonial } from "@/components/sections/EditorialTestimonial";
+import { FAQAccordion }         from "@/components/sections/FAQAccordion";
 import { CTASection }           from "@/components/sections/CTASection";
 
 export default function RealEstate() {
@@ -43,6 +44,8 @@ export default function RealEstate() {
       <ServicesPricingList />
 
       <EditorialTestimonial />
+
+      <FAQAccordion />
 
       <CTASection
         image="https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?w=1920&q=85"

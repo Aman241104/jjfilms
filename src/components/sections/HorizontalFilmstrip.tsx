@@ -84,7 +84,7 @@ export const HorizontalFilmstrip = () => {
           y: 30,
           duration: 0.7,
           ease: "power3.out",
-          clearProps: "all",
+          clearProps: "opacity,transform",
           immediateRender: false,
           scrollTrigger: {
             trigger: card,

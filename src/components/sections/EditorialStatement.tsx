@@ -2,29 +2,22 @@
 
 import React, { useRef, useEffect } from "react";
 import gsap from "gsap";
-import { SplitText } from "gsap/SplitText";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Image from "next/image";
 
-gsap.registerPlugin(SplitText, ScrollTrigger);
+gsap.registerPlugin(ScrollTrigger);
 
 export const EditorialStatement = () => {
   const sectionRef = useRef<HTMLDivElement>(null);
-  const textRef    = useRef<HTMLParagraphElement>(null);
 
   useEffect(() => {
-    if (!textRef.current) return;
-
-    const split = new SplitText(textRef.current, { type: "words" });
-
     const ctx = gsap.context(() => {
-      gsap.from(split.words, {
+      gsap.from(".stmt-text", {
         opacity: 0,
         y: 20,
-        stagger: 0.03,
-        duration: 0.6,
+        duration: 0.9,
         ease: "power3.out",
-        clearProps: "all",
+        clearProps: "opacity,transform",
         immediateRender: false,
         scrollTrigger: { trigger: sectionRef.current, start: "top 72%", once: true },
       });
@@ -35,7 +28,7 @@ export const EditorialStatement = () => {
         stagger: 0.2,
         duration: 1,
         ease: "power3.out",
-        clearProps: "all",
+        clearProps: "opacity,transform",
         immediateRender: false,
         scrollTrigger: { trigger: sectionRef.current, start: "top 68%", once: true },
       });
@@ -46,17 +39,13 @@ export const EditorialStatement = () => {
         stagger: 0.1,
         duration: 0.7,
         ease: "power3.out",
-        clearProps: "all",
+        clearProps: "opacity,transform",
         immediateRender: false,
         scrollTrigger: { trigger: sectionRef.current, start: "top 60%", once: true },
       });
     }, sectionRef);
 
-    return () => {
-      ctx.revert();
-      gsap.set(split.words, { clearProps: "all" });
-      split.revert();
-    };
+    return () => ctx.revert();
   }, []);
 
   return (
@@ -66,8 +55,7 @@ export const EditorialStatement = () => {
         {/* ── Left: text + stats ─────────────────────── */}
         <div>
           <p
-            ref={textRef}
-            className="font-display font-bold text-ink-900 leading-[1.12]"
+            className="stmt-text font-display font-bold text-ink-900 leading-[1.12]"
             style={{ fontSize: "clamp(1.6rem, 2.8vw, 2.6rem)", letterSpacing: "-0.015em" }}
           >
             EVERY FRAME IS A{" "}

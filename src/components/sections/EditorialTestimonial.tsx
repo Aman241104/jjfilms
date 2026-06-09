@@ -56,7 +56,7 @@ export const EditorialTestimonial = () => {
     const ctx = gsap.context(() => {
       gsap.from(".tes-reveal", {
         opacity: 0, y: 30, stagger: 0.1, duration: 0.85, ease: "power3.out",
-        clearProps: "all",
+        clearProps: "opacity,transform",
         immediateRender: false,
         scrollTrigger: { trigger: sectionRef.current, start: "top 72%", once: true },
       });

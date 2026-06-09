@@ -58,13 +58,13 @@ export const ServiceSelector = () => {
     const ctx = gsap.context(() => {
       gsap.from(".svc-row", {
         x: -24, opacity: 0, stagger: 0.1, duration: 0.8, ease: "power3.out",
-        clearProps: "all",
+        clearProps: "opacity,transform",
         immediateRender: false,
         scrollTrigger: { trigger: sectionRef.current, start: "top 72%", once: true },
       });
       gsap.from(".svc-panel", {
         x: 40, opacity: 0, duration: 1, ease: "power3.out",
-        clearProps: "all",
+        clearProps: "opacity,transform",
         immediateRender: false,
         scrollTrigger: { trigger: sectionRef.current, start: "top 65%", once: true },
       });

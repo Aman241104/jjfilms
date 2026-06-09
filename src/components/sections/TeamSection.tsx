@@ -35,7 +35,7 @@ export const TeamSection = () => {
     const ctx = gsap.context(() => {
       gsap.from(".team-card", {
         opacity: 0, y: 40, stagger: 0.15, duration: 0.9, ease: "power3.out",
-        clearProps: "all",
+        clearProps: "opacity,transform",
         immediateRender: false,
         scrollTrigger: { trigger: sectionRef.current, start: "top 70%", once: true },
       });

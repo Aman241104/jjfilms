@@ -46,7 +46,7 @@ export const CTASection = ({
         stagger: 0.12,
         duration: 0.9,
         ease: "power3.out",
-        clearProps: "all",
+        clearProps: "opacity,transform",
         immediateRender: false,
         scrollTrigger: { trigger: sectionRef.current, start: "top 72%", once: true },
       });
