@@ -36,9 +36,10 @@ const config: Config = {
         }
       },
       fontFamily: {
-        serif: ["var(--font-serif)", "serif"],
-        sans: ["var(--font-sans)", "sans-serif"],
-        display: ["var(--font-display)", "sans-serif"],
+        serif:   ["var(--font-serif)",   "serif"],
+        sans:    ["var(--font-sans)",     "sans-serif"],
+        display: ["var(--font-display)", "serif"],
+        script:  ["var(--font-script)",  "cursive"],
       },
       backgroundImage: {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",

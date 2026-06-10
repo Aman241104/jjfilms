@@ -24,7 +24,7 @@ export const BookingFab = () => {
   return (
     <Link
       href="/contact"
-      className="fixed bottom-8 right-8 z-[90] flex items-center gap-3 bg-ink-900 text-cream-50 px-5 py-3.5 rounded-full shadow-2xl hover:bg-ink-700 transition-all duration-300 group"
+      className="hidden md:flex fixed bottom-8 right-8 z-[90] items-center gap-3 bg-ink-900 text-cream-50 px-5 py-3.5 rounded-full shadow-2xl hover:bg-ink-700 transition-all duration-300 group"
       style={{
         opacity: visible ? 1 : 0,
         transform: visible ? "translateY(0)" : "translateY(12px)",

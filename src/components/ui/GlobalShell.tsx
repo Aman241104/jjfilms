@@ -16,15 +16,30 @@ import { Home, Camera, Heart, Mail } from "lucide-react";
 
 const MobileBottomNav = () => {
   const pathname = usePathname();
+  const hideFloatingCta = pathname === "/" || pathname === "/contact";
+
   const items = [
     { icon: <Home   size={18} />, label: "Home",    href: "/" },
     { icon: <Camera size={18} />, label: "Work",    href: "/gallery" },
     { icon: <Heart  size={18} />, label: "Weddings", href: "/wedding-films" },
     { icon: <Mail   size={18} />, label: "Contact", href: "/contact" },
   ];
+
   return (
-    <div className="fixed bottom-4 left-1/2 -translate-x-1/2 z-[100] md:hidden w-[88%] max-w-sm">
-      <div className="glass rounded-full px-5 py-3.5 flex justify-between items-center shadow-lg">
+    <div className="fixed bottom-4 left-1/2 -translate-x-1/2 z-[100] md:hidden w-[88%] max-w-sm flex flex-col items-center gap-2">
+      {/* Floating CTA pill — hidden on home and contact */}
+      {!hideFloatingCta && (
+        <Link
+          href="/contact"
+          className="flex items-center gap-2 bg-ink-900 text-cream-50 px-5 py-2.5 rounded-full shadow-xl text-[0.6rem] tracking-[0.14em] font-medium uppercase"
+        >
+          Book a Call
+          <span className="text-xs">→</span>
+        </Link>
+      )}
+
+      {/* Nav dock */}
+      <div className="glass rounded-full px-5 py-3.5 flex justify-between items-center shadow-lg w-full">
         {items.map((item) => (
           <Link key={item.href} href={item.href}
             className={cn("flex flex-col items-center gap-1 transition-all",
@@ -46,7 +61,7 @@ export const GlobalShell = ({ children }: { children: React.ReactNode }) => {
 
   return (
     <SmoothScroll>
-      <div className="min-h-screen selection:bg-accent-ev selection:text-white pb-20 md:pb-0 film-grain">
+      <div className="min-h-screen selection:bg-accent-ev selection:text-white pb-32 md:pb-0 film-grain">
         <motion.div className="scroll-progress" style={{ scaleX }} />
         <IntroLoader />
         <CustomCursor />

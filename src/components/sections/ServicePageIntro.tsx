@@ -61,7 +61,7 @@ export const ServicePageIntro = ({
         scrollTrigger: { trigger: sectionRef.current, start: "top 65%", once: true },
       });
     }, sectionRef);
-    return () => { ctx.revert(); gsap.set(split.words, { clearProps: "all" }); split.revert(); };
+    return () => { ctx.revert(); gsap.set(split.words, { clearProps: "opacity,transform" }); split.revert(); };
   }, []);
 
   return (

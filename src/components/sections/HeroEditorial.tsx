@@ -56,7 +56,7 @@ export const HeroEditorial = ({
 
     return () => {
       tl.kill();
-      gsap.set([split.chars, taglineRef.current, scriptRef.current], { clearProps: "all" });
+      gsap.set([split.chars, taglineRef.current, scriptRef.current], { clearProps: "opacity,transform,visibility" });
       split.revert();
     };
   }, []);

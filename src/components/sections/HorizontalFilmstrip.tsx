@@ -53,6 +53,9 @@ export const HorizontalFilmstrip = () => {
   }, []);
 
   useEffect(() => {
+    // Mobile uses native scroll — no GSAP pin needed
+    if (isMobile) return;
+
     const section  = sectionRef.current;
     const strip    = stripRef.current;
     const progress = progressRef.current;
@@ -77,7 +80,6 @@ export const HorizontalFilmstrip = () => {
         },
       });
 
-      /* Stagger cards in on first appearance as they scroll into view */
       strip.querySelectorAll<HTMLElement>(".strip-card").forEach((card) => {
         gsap.from(card, {
           opacity: 0,
@@ -95,7 +97,6 @@ export const HorizontalFilmstrip = () => {
         });
       });
 
-      /* Inner parallax */
       strip.querySelectorAll<HTMLElement>(".strip-img").forEach((img) => {
         gsap.fromTo(img,
           { x: -16 },
@@ -130,7 +131,7 @@ export const HorizontalFilmstrip = () => {
       <section
         ref={sectionRef}
         className="bg-cream-50"
-        style={{ overflowX: "clip" }}
+        style={{ overflowX: isMobile ? "visible" : "clip" }}
       >
         {/* ── Header ─────────────────────────────────── */}
         <div className="px-8 md:px-14 pt-16 md:pt-20 pb-10 md:pb-14 flex items-end justify-between border-b border-ink-100/50">
@@ -145,7 +146,7 @@ export const HorizontalFilmstrip = () => {
           </div>
           <div className="text-right hidden sm:block">
             <p className="font-serif italic text-ink-400 text-sm mb-1">
-              {isMobile ? "swipe to explore" : "scroll to explore"}
+              {isMobile ? "swipe to explore →" : "scroll to explore"}
             </p>
             <p className="text-label text-ink-200">
               {String(items.length).padStart(2, "0")} works
@@ -153,71 +154,103 @@ export const HorizontalFilmstrip = () => {
           </div>
         </div>
 
-        {/* ── Strip — items-end so tallest image anchors the top, others vary via mt ── */}
-        <div
-          ref={stripRef}
-          className="flex items-end gap-4 md:gap-5 px-8 md:px-14 pb-16 md:pb-20 pt-16 md:pt-20 w-max"
-        >
-          {items.map((item, i) => (
-            <div
-              key={i}
-              className="strip-card relative flex-shrink-0 overflow-hidden rounded-sm group cursor-pointer"
-              style={{
-                width:       wMap[item.size ?? "normal"],
-                height:      hMap[item.size ?? "normal"],
-                marginBottom: mtOffsets[i % mtOffsets.length],
-              }}
-              onClick={() => lb.openAt(i)}
-              data-cursor-image={item.src}
-            >
-              <Image
-                src={item.src}
-                alt={item.title}
-                fill
-                sizes="(max-width:768px) 52vw, 30vw"
-                className="strip-img object-cover transition-transform duration-700 group-hover:scale-[1.06]"
-              />
-
-              {/* Hover overlay */}
-              <div className="absolute inset-0 bg-gradient-to-t from-dark-void/80 via-dark-void/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-
-              {/* Number */}
-              <span
-                className="absolute top-3 left-3 text-label text-white/0 group-hover:text-white/50 transition-colors duration-300"
-                style={{ fontSize: "0.5rem", letterSpacing: "0.2em" }}
-              >
-                ({String(i + 1).padStart(2, "0")})
-              </span>
-
-              {/* Category badge */}
-              <span
-                className="absolute top-3 right-3 text-label bg-dark-void/50 text-white/80 px-2 py-1 rounded-[2px] opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-                style={{ fontSize: "0.48rem", letterSpacing: "0.18em" }}
-              >
-                {item.category}
-              </span>
-
-              {/* Caption */}
-              <div className="absolute bottom-0 left-0 right-0 p-4 md:p-5 translate-y-2 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-300 ease-out">
-                <p
-                  className="font-display font-semibold text-white leading-tight"
-                  style={{ fontSize: "clamp(0.9rem, 1.4vw, 1.2rem)", letterSpacing: "-0.01em" }}
-                >
-                  {item.title}
-                </p>
-              </div>
-            </div>
-          ))}
-        </div>
-
-        {/* ── Progress bar ───────────────────────────── */}
-        <div className="relative h-px bg-ink-100/40 mx-8 md:mx-14 mb-8">
+        {/* ── Mobile: native horizontal scroll ── */}
+        {isMobile ? (
           <div
-            ref={progressRef}
-            className="absolute inset-0 bg-ink-400 origin-left"
-            style={{ transform: "scaleX(0)", transformOrigin: "left center" }}
-          />
-        </div>
+            className="overflow-x-auto pb-8 pt-8"
+            style={{ WebkitOverflowScrolling: "touch", scrollSnapType: "x mandatory", scrollbarWidth: "none" }}
+          >
+            <div className="flex items-end gap-4 px-8 w-max">
+              {items.map((item, i) => (
+                <div
+                  key={i}
+                  className="strip-card relative flex-shrink-0 overflow-hidden rounded-sm group cursor-pointer"
+                  style={{
+                    width:  wMap[item.size ?? "normal"],
+                    height: hMap[item.size ?? "normal"],
+                    scrollSnapAlign: "start",
+                  }}
+                  onClick={() => lb.openAt(i)}
+                >
+                  <Image
+                    src={item.src}
+                    alt={item.title}
+                    fill
+                    sizes="52vw"
+                    className="object-cover"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-dark-void/70 to-transparent" />
+                  <div className="absolute bottom-0 left-0 right-0 p-3">
+                    <p className="text-label text-white/50 mb-0.5" style={{ fontSize: "0.48rem", letterSpacing: "0.18em" }}>{item.category}</p>
+                    <p className="font-display font-semibold text-white text-sm leading-tight">{item.title}</p>
+                  </div>
+                </div>
+              ))}
+              {/* trailing spacer */}
+              <div className="w-4 flex-shrink-0" />
+            </div>
+          </div>
+        ) : (
+          /* ── Desktop: GSAP pin scroll ── */
+          <div
+            ref={stripRef}
+            className="flex items-end gap-5 px-14 pb-20 pt-20 w-max"
+          >
+            {items.map((item, i) => (
+              <div
+                key={i}
+                className="strip-card relative flex-shrink-0 overflow-hidden rounded-sm group cursor-pointer"
+                style={{
+                  width:        wMap[item.size ?? "normal"],
+                  height:       hMap[item.size ?? "normal"],
+                  marginBottom: mtOffsets[i % mtOffsets.length],
+                }}
+                onClick={() => lb.openAt(i)}
+                data-cursor-image={item.src}
+              >
+                <Image
+                  src={item.src}
+                  alt={item.title}
+                  fill
+                  sizes="30vw"
+                  className="strip-img object-cover transition-transform duration-700 group-hover:scale-[1.06]"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-dark-void/80 via-dark-void/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                <span
+                  className="absolute top-3 left-3 text-label text-white/0 group-hover:text-white/50 transition-colors duration-300"
+                  style={{ fontSize: "0.5rem", letterSpacing: "0.2em" }}
+                >
+                  ({String(i + 1).padStart(2, "0")})
+                </span>
+                <span
+                  className="absolute top-3 right-3 text-label bg-dark-void/50 text-white/80 px-2 py-1 rounded-[2px] opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                  style={{ fontSize: "0.48rem", letterSpacing: "0.18em" }}
+                >
+                  {item.category}
+                </span>
+                <div className="absolute bottom-0 left-0 right-0 p-5 translate-y-2 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-300 ease-out">
+                  <p
+                    className="font-display font-semibold text-white leading-tight"
+                    style={{ fontSize: "clamp(0.9rem, 1.4vw, 1.2rem)", letterSpacing: "-0.01em" }}
+                  >
+                    {item.title}
+                  </p>
+                </div>
+              </div>
+            ))}
+          </div>
+        )}
+
+        {/* ── Progress bar (desktop only) ─── */}
+        {!isMobile && (
+          <div className="relative h-px bg-ink-100/40 mx-14 mb-8">
+            <div
+              ref={progressRef}
+              className="absolute inset-0 bg-ink-400 origin-left"
+              style={{ transform: "scaleX(0)", transformOrigin: "left center" }}
+            />
+          </div>
+        )}
       </section>
 
       <Lightbox

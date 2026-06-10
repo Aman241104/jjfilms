@@ -24,7 +24,7 @@ export const WhatsAppFab = () => {
       target="_blank"
       rel="noopener noreferrer"
       aria-label="Chat on WhatsApp"
-      className="fixed bottom-8 left-8 z-[90] w-12 h-12 rounded-full flex items-center justify-center shadow-2xl transition-all duration-400"
+      className="hidden md:flex fixed bottom-8 left-8 z-[90] w-12 h-12 rounded-full items-center justify-center shadow-2xl transition-all duration-400"
       style={{
         background: "#25D366",
         opacity: visible ? 1 : 0,
