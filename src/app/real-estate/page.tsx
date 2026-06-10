@@ -8,9 +8,15 @@ export const metadata: Metadata = {
 };
 import { HeroEditorial }        from "@/components/sections/HeroEditorial";
 import { ServicePageIntro }     from "@/components/sections/ServicePageIntro";
+import { VideoShowreel }        from "@/components/ui/VideoShowreel";
+import { BeforeAfterSlider }    from "@/components/sections/BeforeAfterSlider";
+import { ProcessSection }       from "@/components/sections/ProcessSection";
+import { WhyChooseUs }          from "@/components/sections/WhyChooseUs";
+import { StatsCounter }         from "@/components/sections/StatsCounter";
+import { PricingPackages }      from "@/components/sections/PricingPackages";
 import { HorizontalFilmstrip }  from "@/components/sections/HorizontalFilmstrip";
-import { ServicesPricingList }  from "@/components/sections/ServicesPricingList";
 import { EditorialTestimonial } from "@/components/sections/EditorialTestimonial";
+import { ClientStrip }          from "@/components/sections/ClientStrip";
 import { FAQAccordion }         from "@/components/sections/FAQAccordion";
 import { CTASection }           from "@/components/sections/CTASection";
 
@@ -29,9 +35,9 @@ export default function RealEstate() {
         headline="Architectural photography that elevates every listing."
         body="We combine precision composition with expert post-processing to present your property at its absolute best. From intimate apartments to sprawling estates, every square metre deserves to shine."
         stats={[
-          { val: "500+", label: "Properties Shot"     },
-          { val: "10+",  label: "Years Experience"    },
-          { val: "48h",  label: "Delivery Guarantee"  },
+          { val: "500+", label: "Properties Shot"    },
+          { val: "25+",  label: "Years Experience"   },
+          { val: "48h",  label: "Delivery Guarantee" },
         ]}
         images={[
           "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=800&q=80",
@@ -39,11 +45,23 @@ export default function RealEstate() {
         ]}
       />
 
+      <VideoShowreel title="Property Showcase Reel" label="AERIAL & INTERIORS" />
+
+      <BeforeAfterSlider />
+
+      <ProcessSection label="THE PROCESS" />
+
+      <WhyChooseUs />
+
       <HorizontalFilmstrip />
 
-      <ServicesPricingList />
+      <StatsCounter />
+
+      <PricingPackages defaultTab="real-estate" />
 
       <EditorialTestimonial />
+
+      <ClientStrip />
 
       <FAQAccordion />
 

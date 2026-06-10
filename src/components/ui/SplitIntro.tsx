@@ -2,6 +2,7 @@
 
 import React, { useRef, useEffect, useState } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import gsap from "gsap";
 
@@ -227,6 +228,22 @@ export const SplitIntro = () => {
           </div>
         </div>
       </div>
+      {/* ═══ PRODUCT PHOTOGRAPHY — subtle bottom link ═══════════════════ */}
+      {!selecting && (
+        <div className="absolute bottom-6 left-1/2 -translate-x-1/2 z-20 pointer-events-auto">
+          <Link
+            href="/product-photography"
+            className="flex items-center gap-3 group"
+          >
+            <span className="w-4 h-px bg-white/20 group-hover:w-8 group-hover:bg-white/40 transition-all duration-500" />
+            <span className="text-label text-white/28 group-hover:text-white/60 transition-colors duration-400 tracking-[0.18em]"
+              style={{ fontSize: "0.55rem" }}>
+              ALSO: PRODUCT PHOTOGRAPHY
+            </span>
+            <span className="w-4 h-px bg-white/20 group-hover:w-8 group-hover:bg-white/40 transition-all duration-500" />
+          </Link>
+        </div>
+      )}
     </div>
   );
 };

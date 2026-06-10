@@ -1,11 +1,13 @@
 "use client";
 
 import React, { useEffect, useRef } from "react";
-import { Navbar }       from "./Navbar";
+import { Navbar }      from "./Navbar";
 import { CustomCursor } from "./CustomCursor";
 import { SmoothScroll } from "./SmoothScroll";
 import { IntroLoader }  from "./IntroLoader";
 import { Footer }       from "./Footer";
+import { BookingFab }    from "./BookingFab";
+import { WhatsAppFab }   from "./WhatsAppFab";
 import { motion, useScroll, useSpring } from "framer-motion";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -17,7 +19,7 @@ const MobileBottomNav = () => {
   const items = [
     { icon: <Home   size={18} />, label: "Home",    href: "/" },
     { icon: <Camera size={18} />, label: "Work",    href: "/gallery" },
-    { icon: <Heart  size={18} />, label: "Events",  href: "/wedding-films" },
+    { icon: <Heart  size={18} />, label: "Weddings", href: "/wedding-films" },
     { icon: <Mail   size={18} />, label: "Contact", href: "/contact" },
   ];
   return (
@@ -51,6 +53,8 @@ export const GlobalShell = ({ children }: { children: React.ReactNode }) => {
         <Navbar />
         <main>{children}</main>
         <Footer />
+        <BookingFab />
+        <WhatsAppFab />
         <MobileBottomNav />
       </div>
     </SmoothScroll>

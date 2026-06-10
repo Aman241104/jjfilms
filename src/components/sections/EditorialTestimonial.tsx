@@ -22,29 +22,38 @@ const testimonials: Testimonial[] = [
   {
     num:  "001",
     quote:
-      "The photographs captured our home in a way we never imagined possible. Every frame tells a story — we had three offers within 48 hours.",
-    author:   "SARAH K.",
-    role:     "Homeowner, Malibu",
+      "Jignesh and Jay have a rare gift — they make a property feel like a home before anyone has even walked through the door. We listed on a Friday, had six viewings by Sunday, and were in contract by Monday. The photos did all the work.",
+    author:   "PRIYA MEHTA",
+    role:     "Homeowner, Mumbai",
     mainImg:  "https://images.unsplash.com/photo-1600585154526-990dced4db0d?w=900&q=80",
     thumbImg: "https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?w=400&q=80",
   },
   {
     num:  "002",
     quote:
-      "Working with the team was effortless. They understood exactly what our brand needed — the product shots exceeded every expectation.",
-    author:   "MARCO V.",
-    role:     "Creative Director, Milan",
+      "We've worked with photography studios across four continents. JJ Films is the only team that consistently delivers images we'd put on a billboard without a single revision request. That level of craft is extraordinarily rare.",
+    author:   "MARCO VITALE",
+    role:     "Creative Director, Vitale Milano",
     mainImg:  "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=900&q=80",
     thumbImg: "https://images.unsplash.com/photo-1585386959984-a4155224a1ad?w=400&q=80",
   },
   {
     num:  "003",
     quote:
-      "They were invisible on our wedding day yet somehow captured every stolen glance and joyful tear. These photos are our greatest treasure.",
-    author:   "ELENA & JAMES",
-    role:     "Couple, Tuscany Wedding",
+      "Jay was a ghost on our wedding day — we barely noticed him. And yet somehow every single moment we cared about is in those photos. The laughing, the crying, the chaos, the quiet. We look at them every anniversary and feel it all over again.",
+    author:   "ANANYA & ROHAN KAPOOR",
+    role:     "Wedding, Udaipur",
     mainImg:  "https://images.unsplash.com/photo-1519741497674-611481863552?w=900&q=80",
     thumbImg: "https://images.unsplash.com/photo-1511285560929-80b456fea0bc?w=400&q=80",
+  },
+  {
+    num:  "004",
+    quote:
+      "Our e-commerce conversion rate jumped 34% in the quarter we launched with JJ Films' product photography. The images are clean, intentional, and they sell. That's all I need from a studio and they deliver it every time.",
+    author:   "SARAH CHEN",
+    role:     "Founder, Lumière Skincare",
+    mainImg:  "https://images.unsplash.com/photo-1585386959984-a4155224a1ad?w=900&q=80",
+    thumbImg: "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=400&q=80",
   },
 ];
 
@@ -102,12 +111,10 @@ export const EditorialTestimonial = () => {
                   sizes="(max-width:768px) 90vw, 48vw"
                   className="object-cover"
                 />
-                {/* Subtle bottom gradient */}
                 <div className="absolute inset-0 bg-gradient-to-t from-dark-void/50 to-transparent" />
               </motion.div>
             </AnimatePresence>
 
-            {/* Decorative index number — bottom left corner */}
             <span
               className="absolute bottom-4 left-5 font-display font-bold text-white/10 select-none pointer-events-none"
               style={{ fontSize: "clamp(4rem, 7vw, 7rem)", lineHeight: 1, letterSpacing: "-0.04em" }}
@@ -119,7 +126,6 @@ export const EditorialTestimonial = () => {
           {/* Right — quote panel */}
           <div className="flex flex-col justify-between gap-10">
 
-            {/* Opening mark */}
             <p
               className="tes-reveal font-serif text-white/10 leading-none select-none"
               style={{ fontSize: "clamp(5rem, 9vw, 10rem)", lineHeight: 0.7 }}
@@ -127,7 +133,6 @@ export const EditorialTestimonial = () => {
               &ldquo;
             </p>
 
-            {/* Quote */}
             <AnimatePresence mode="wait">
               <motion.div
                 key={`quote-${current}`}
@@ -139,14 +144,13 @@ export const EditorialTestimonial = () => {
               >
                 <blockquote
                   className="font-serif italic text-white leading-relaxed"
-                  style={{ fontSize: "clamp(1.15rem, 1.9vw, 1.6rem)" }}
+                  style={{ fontSize: "clamp(1.05rem, 1.7vw, 1.45rem)" }}
                 >
                   {t.quote}
                 </blockquote>
               </motion.div>
             </AnimatePresence>
 
-            {/* Author row */}
             <AnimatePresence mode="wait">
               <motion.div
                 key={`author-${current}`}
@@ -156,7 +160,6 @@ export const EditorialTestimonial = () => {
                 transition={{ duration: 0.4, delay: 0.15 }}
                 className="flex items-center gap-4"
               >
-                {/* Thumb — circular portrait */}
                 <div className="relative w-11 h-11 rounded-full overflow-hidden flex-shrink-0 ring-1 ring-white/10">
                   <Image src={t.thumbImg} alt="" fill sizes="44px" className="object-cover" />
                 </div>
@@ -169,7 +172,6 @@ export const EditorialTestimonial = () => {
 
             {/* Navigation */}
             <div className="tes-reveal flex items-center justify-between pt-6 border-t border-white/8">
-              {/* Dot indicators */}
               <div className="flex gap-2 items-center">
                 {testimonials.map((_, i) => (
                   <button
@@ -182,19 +184,12 @@ export const EditorialTestimonial = () => {
                   />
                 ))}
               </div>
-              {/* Prev / Next */}
               <div className="flex items-center gap-6">
-                <button
-                  onClick={prev}
-                  className="text-label text-white/30 hover:text-white/80 transition-colors duration-300 interactive"
-                >
+                <button onClick={prev} className="text-label text-white/30 hover:text-white/80 transition-colors duration-300 interactive">
                   ← PREV
                 </button>
                 <span className="text-label text-white/10">|</span>
-                <button
-                  onClick={next}
-                  className="text-label text-white/30 hover:text-white/80 transition-colors duration-300 interactive"
-                >
+                <button onClick={next} className="text-label text-white/30 hover:text-white/80 transition-colors duration-300 interactive">
                   NEXT →
                 </button>
               </div>

@@ -133,13 +133,13 @@ export const CTASection = ({
           <div>
             <p className="text-label text-white/20 mb-0.5">EMAIL</p>
             <p className="text-label text-white/50" style={{ letterSpacing: "0.08em" }}>
-              hello@jjfilms.co
+              hello@jjfilms.studio
             </p>
           </div>
           <div>
             <p className="text-label text-white/20 mb-0.5">BASED</p>
             <p className="text-label text-white/50" style={{ letterSpacing: "0.08em" }}>
-              Los Angeles · Worldwide
+              Mumbai · Worldwide
             </p>
           </div>
         </div>

@@ -16,15 +16,16 @@ const navLinks = [
   { num: "001", name: "Home",              href: "/" },
   { num: "002", name: "Real Estate",       href: "/real-estate" },
   { num: "003", name: "Product",           href: "/product-photography" },
-  { num: "004", name: "Events & Weddings", href: "/wedding-films" },
+  { num: "004", name: "Wedding Films",     href: "/wedding-films" },
   { num: "005", name: "About",             href: "/about" },
-  { num: "006", name: "Contact",           href: "/contact" },
+  { num: "006", name: "Journal",           href: "/journal" },
+  { num: "007", name: "Contact",           href: "/contact" },
 ];
 
 const socials = [
-  { name: "Instagram", href: "#" },
-  { name: "Behance",   href: "#" },
-  { name: "LinkedIn",  href: "#" },
+  { name: "Instagram", href: "https://instagram.com/jjfilms.studio" },
+  { name: "Behance",   href: "https://behance.net/jjfilms"          },
+  { name: "LinkedIn",  href: "https://linkedin.com/company/jjfilms" },
 ];
 
 export const Footer = () => (
@@ -53,7 +54,7 @@ export const Footer = () => (
           JJFILMS<span className="text-accent-ev">.</span>
         </p>
         <p className="text-ink-500 text-sm leading-relaxed max-w-xs">
-          Photography studio specialising in real estate, product and event photography.
+          Founded in 1999 by brothers Jignesh & Jay Shah. 25 years of photography across real estate, product and weddings — Mumbai to worldwide.
         </p>
       </div>
 
@@ -98,9 +99,14 @@ export const Footer = () => (
       <p className="text-label text-ink-300" suppressHydrationWarning>
         © {new Date().getFullYear()} JJFILMS. ALL RIGHTS RESERVED.
       </p>
-      <p className="text-label text-ink-300">
-        PHOTOGRAPHY · REAL ESTATE · PRODUCT · EVENTS
-      </p>
+      <div className="flex items-center gap-6">
+        <Link href="/privacy" className="text-label text-ink-300 hover:text-ink-600 transition-colors">
+          PRIVACY POLICY
+        </Link>
+        <p className="text-label text-ink-300">
+          PHOTOGRAPHY · REAL ESTATE · PRODUCT · EVENTS
+        </p>
+      </div>
     </div>
   </footer>
 );

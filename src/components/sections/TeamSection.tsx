@@ -9,22 +9,22 @@ gsap.registerPlugin(ScrollTrigger);
 
 const team = [
   {
-    name:  "Julian James",
-    role:  "Creative Director & Founder",
+    name:  "Jignesh Shah",
+    role:  "Co-Founder & Creative Director",
     image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=500&q=80",
-    bio:   "15 years behind the lens, Julian's editorial eye shapes every project we take on.",
+    bio:   "With 25 years behind the lens, Jignesh's architectural eye and meticulous post-processing style define the visual language of everything JJ Films produces. He co-founded the studio with his brother Jay after years of freelance work across India and Europe.",
+  },
+  {
+    name:  "Jay Shah",
+    role:  "Co-Founder & Lead Photographer",
+    image: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=500&q=80",
+    bio:   "Jay built his reputation documenting weddings and milestone moments across three continents. His instinct for the unscripted — the tear, the laugh, the stolen glance — is what clients remember long after the day is over.",
   },
   {
     name:  "Elena Rossi",
-    role:  "Lead Photographer",
+    role:  "Senior Photographer – Commercial",
     image: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=500&q=80",
-    bio:   "Specialising in weddings and events, Elena captures the quiet moments that define a day.",
-  },
-  {
-    name:  "Marcus Thorne",
-    role:  "Product & Commercial",
-    image: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=500&q=80",
-    bio:   "A studio perfectionist — Marcus transforms products into iconic brand imagery.",
+    bio:   "Elena joined JJ Films a decade ago after working with fashion houses in Milan. She leads all product and commercial campaigns, bringing a studio-perfectionist sensibility that transforms every object into a brand statement.",
   },
 ];
 
@@ -48,11 +48,16 @@ export const TeamSection = () => {
       <div className="max-w-screen-xl mx-auto">
         <p className="text-label text-ink-300 mb-3">THE TEAM</p>
         <h2
-          className="font-display font-bold text-ink-900 mb-16"
+          className="font-display font-bold text-ink-900 mb-4"
           style={{ fontSize: "clamp(2rem, 4vw, 3rem)", letterSpacing: "-0.02em" }}
         >
           The people behind the lens
         </h2>
+        <p className="text-ink-500 text-sm md:text-base leading-relaxed max-w-xl mb-16">
+          JJ Films was founded by brothers Jignesh and Jay Shah in 1999. What started as a two-man
+          operation in a rented studio has grown into one of the most trusted photography practices
+          in the country — 500+ projects and 25 years later.
+        </p>
 
         <div className="grid md:grid-cols-3 gap-8">
           {team.map((member) => (

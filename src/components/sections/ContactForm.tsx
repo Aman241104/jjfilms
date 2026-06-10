@@ -17,9 +17,9 @@ const floatingImgs = [
 
 type FormState = "idle" | "sending" | "success" | "error";
 
-const Field = ({ label, children }: { label: string; children: React.ReactNode }) => (
+const Field = ({ label, htmlFor, children }: { label: string; htmlFor: string; children: React.ReactNode }) => (
   <div>
-    <label className="text-label text-ink-400 block mb-2">{label}</label>
+    <label htmlFor={htmlFor} className="text-label text-ink-400 block mb-2">{label}</label>
     {children}
   </div>
 );
@@ -81,8 +81,9 @@ export const ContactForm = () => {
             className="font-display font-bold text-ink-900 leading-[0.95]"
             style={{ fontSize: "clamp(3rem, 9vw, 9rem)", letterSpacing: "-0.03em" }}
           >
-            DO <em className="font-serif italic not-italic text-ink-400">you</em> NEED
-            <br className="hidden md:block" />HELP?
+            LET&apos;S{" "}
+            <em className="font-serif italic font-normal text-ink-400">start</em>
+            <br className="hidden md:block" />A PROJECT.
           </h1>
         </div>
       </section>
@@ -123,8 +124,8 @@ export const ContactForm = () => {
             </div>
             <div className="contact-reveal space-y-4">
               {[
-                { label: "EMAIL",  val: "hello@jjfilms.studio",  href: "mailto:hello@jjfilms.studio" },
-                { label: "PHONE",  val: "+1 (555) 123-4567",     href: "tel:+15551234567" },
+                { label: "EMAIL",  val: "hello@jjfilms.studio",   href: "mailto:hello@jjfilms.studio" },
+                { label: "PHONE",  val: "+91 98200 12345",        href: "tel:+919820012345" },
               ].map(({ label, val, href }) => (
                 <div key={label}>
                   <p className="text-label text-ink-300 mb-1">{label}</p>
@@ -133,7 +134,7 @@ export const ContactForm = () => {
               ))}
               <div>
                 <p className="text-label text-ink-300 mb-1">STUDIO</p>
-                <p className="text-ink-500 text-sm">Los Angeles, California</p>
+                <p className="text-ink-500 text-sm">Mumbai, Maharashtra · India</p>
               </div>
             </div>
           </div>
@@ -162,21 +163,21 @@ export const ContactForm = () => {
             ) : (
               <form onSubmit={handleSubmit} className="space-y-8">
                 <div className="grid md:grid-cols-2 gap-8">
-                  <Field label="NAME">
-                    <input name="name" value={formData.name} onChange={handleChange}
+                  <Field label="NAME" htmlFor="cf-name">
+                    <input id="cf-name" name="name" value={formData.name} onChange={handleChange}
                       className={inputClass} placeholder="Your full name" required />
                   </Field>
-                  <Field label="EMAIL">
-                    <input name="email" type="email" value={formData.email} onChange={handleChange}
+                  <Field label="EMAIL" htmlFor="cf-email">
+                    <input id="cf-email" name="email" type="email" value={formData.email} onChange={handleChange}
                       className={inputClass} placeholder="hello@example.com" required />
                   </Field>
                 </div>
-                <Field label="PHONE NUMBER">
-                  <input name="phone" type="tel" value={formData.phone} onChange={handleChange}
-                    className={inputClass} placeholder="+1 000 000 0000" />
+                <Field label="PHONE NUMBER" htmlFor="cf-phone">
+                  <input id="cf-phone" name="phone" type="tel" value={formData.phone} onChange={handleChange}
+                    className={inputClass} placeholder="+91 00000 00000" />
                 </Field>
-                <Field label="SERVICE">
-                  <select name="service" value={formData.service} onChange={handleChange}
+                <Field label="SERVICE" htmlFor="cf-service">
+                  <select id="cf-service" name="service" value={formData.service} onChange={handleChange}
                     className={`${inputClass} appearance-none cursor-pointer`}>
                     <option value="" disabled>Select a service</option>
                     <option>Real Estate Photography</option>
@@ -185,8 +186,8 @@ export const ContactForm = () => {
                     <option>Other / Not sure yet</option>
                   </select>
                 </Field>
-                <Field label="YOUR MESSAGE">
-                  <textarea name="message" rows={4} value={formData.message} onChange={handleChange}
+                <Field label="YOUR MESSAGE" htmlFor="cf-message">
+                  <textarea id="cf-message" name="message" rows={4} value={formData.message} onChange={handleChange}
                     className={`${inputClass} resize-none`}
                     placeholder="Tell us about your project..." required />
                 </Field>

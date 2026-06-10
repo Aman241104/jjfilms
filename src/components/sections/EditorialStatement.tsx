@@ -69,8 +69,8 @@ export const EditorialStatement = () => {
 
           <div className="mt-12 flex flex-wrap gap-12">
             {[
-              { val: "500+", label: "Properties Photographed" },
-              { val: "12+",  label: "Years of Experience" },
+              { val: "500+", label: "Projects Delivered" },
+              { val: "25+",  label: "Years of Experience" },
               { val: "98%",  label: "Client Satisfaction" },
             ].map(({ val, label }) => (
               <div key={label} className="stmt-stat">

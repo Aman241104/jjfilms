@@ -11,5 +11,11 @@ export const metadata: Metadata = {
 };
 
 export default function Home() {
-  return <SplitIntro />;
+  return (
+    <>
+      {/* Visually hidden h1 for SEO — visual heading is inside SplitIntro */}
+      <h1 className="sr-only">JJFILMS — Premium Photography Studio · Real Estate, Weddings & Product Photography</h1>
+      <SplitIntro />
+    </>
+  );
 }

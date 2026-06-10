@@ -10,9 +10,10 @@ const links = [
   { name: "Home",               href: "/" },
   { name: "Real Estate",        href: "/real-estate" },
   { name: "Product",            href: "/product-photography" },
-  { name: "Events & Weddings",  href: "/wedding-films" },
+  { name: "Wedding Films",      href: "/wedding-films" },
   { name: "About",              href: "/about" },
   { name: "Gallery",            href: "/gallery" },
+  { name: "Journal",            href: "/journal" },
   { name: "Contact",            href: "/contact" },
 ];
 
@@ -151,9 +152,13 @@ export const Navbar = () => {
             {/* Footer row */}
             <div className="px-10 md:px-16 py-8 flex items-center justify-between border-t border-white/5">
               <div className="flex gap-6">
-                {["Instagram", "Behance", "LinkedIn"].map((s) => (
-                  <a key={s} href="#" className="text-label text-white/30 hover:text-white transition-colors">
-                    {s}
+                {[
+                  { name: "Instagram", href: "https://instagram.com/jjfilms.studio" },
+                  { name: "Behance",   href: "https://behance.net/jjfilms"          },
+                  { name: "LinkedIn",  href: "https://linkedin.com/company/jjfilms" },
+                ].map(({ name, href }) => (
+                  <a key={name} href={href} target="_blank" rel="noopener noreferrer" className="text-label text-white/30 hover:text-white transition-colors">
+                    {name}
                   </a>
                 ))}
               </div>
